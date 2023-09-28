@@ -6,10 +6,8 @@
 trigger:
 - dev
 
-pool:
-  name: Default
-  demands: 
-  - Agent.Name -equals macpro7peaks-vm0
+pool: 
+  name: MacPro-7Peaks-pool
 
 steps:
 - script: echo Hello, world!
