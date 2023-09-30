@@ -4,33 +4,32 @@
 # https://aka.ms/yaml
 
 trigger:
-- main
+  - main
 
-pool: 
+pool:
   name: MacPro-7Peaks-pool
 
 steps:
-- task: NodeTool@0
-  displayName: Install Node.js
-  inputs:
-    versionSpec: '18.x'
+  - task: NodeTool@0
+    displayName: Install Node.js
+    inputs:
+      versionSpec: "18.x"
 
-- script: |
-    npm install
-    npm run build
-  displayName: 'npm install and build'
+  - script: |
+      npm install
+      npm run build
+    displayName: "npm install and build"
 
+  - task: ArchiveFiles@2
+    inputs:
+      rootFolderOrFile: "./dist"
+      includeRootFolder: false
+      archiveType: "zip"
+      archiveFile: "$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip"
+      replaceExistingArchive: true
 
-- task: ArchiveFiles@2
-  inputs:
-    rootFolderOrFile: './dist'
-    includeRootFolder: false
-    archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-    replaceExistingArchive: true
-
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: "$(Build.ArtifactStagingDirectory)"
+      ArtifactName: "drop"
+      publishLocation: "Container"
