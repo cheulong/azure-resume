@@ -9,27 +9,37 @@ trigger:
 pool:
   name: MacPro-7Peaks-pool
 
-steps:
-  - task: NodeTool@0
-    displayName: Install Node.js
-    inputs:
-      versionSpec: "18.x"
+  variables:
+    imageName: "pipelines-javascript-docker"
 
-  - script: |
-      npm install
-      npm run build
-    displayName: "npm install and build"
+  steps:
+    - task: Docker@2
+      displayName: Build an image
+      inputs:
+        repository: $(imageName)
+        command: build
+        Dockerfile: app/Dockerfile
+# steps:
+#   - task: NodeTool@0
+#     displayName: Install Node.js
+#     inputs:
+#       versionSpec: "18.x"
 
-  - task: ArchiveFiles@2
-    inputs:
-      rootFolderOrFile: "./out"
-      includeRootFolder: false
-      archiveType: "zip"
-      archiveFile: "$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip"
-      replaceExistingArchive: true
+#   - script: |
+#       npm install
+#       npm run build
+#     displayName: "npm install and build"
 
-  - task: PublishBuildArtifacts@1
-    inputs:
-      PathtoPublish: "$(Build.ArtifactStagingDirectory)"
-      ArtifactName: "drop"
-      publishLocation: "Container"
+#   - task: ArchiveFiles@2
+#     inputs:
+#       rootFolderOrFile: "./out"
+#       includeRootFolder: false
+#       archiveType: "zip"
+#       archiveFile: "$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip"
+#       replaceExistingArchive: true
+
+#   - task: PublishBuildArtifacts@1
+#     inputs:
+#       PathtoPublish: "$(Build.ArtifactStagingDirectory)"
+#       ArtifactName: "drop"
+#       publishLocation: "Container"
