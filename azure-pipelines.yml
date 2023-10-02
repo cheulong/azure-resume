@@ -18,7 +18,7 @@ steps:
     inputs:
       repository: $(imageName)
       command: build
-      Dockerfile: app/Dockerfile
+      Dockerfile: ./Dockerfile
 # steps:
 #   - task: NodeTool@0
 #     displayName: Install Node.js
