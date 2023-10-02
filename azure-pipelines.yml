@@ -14,11 +14,11 @@ variables:
 
 steps:
   - task: Docker@2
-    displayName: Build an image
     inputs:
-      repository: $(imageName)
-      command: build
-      Dockerfile: ./Dockerfile
+      containerRegistry: 'resumeregistry'
+      repository: 'resumeregistry'
+      command: 'buildAndPush'
+      Dockerfile: '**/Dockerfile'
 # steps:
 #   - task: NodeTool@0
 #     displayName: Install Node.js
