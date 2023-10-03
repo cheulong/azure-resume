@@ -8,6 +8,11 @@ RUN npm install
 
 COPY . .
 
+RUN npm run build
+
 EXPOSE 3000
 
-CMD [ "npm" , "run" , "build"]
+FROM nginx:stable-alpine
+COPY /out /usr/share/nginx/html
+
+CMD ["nginx","-g","daemon off;"]
