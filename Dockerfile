@@ -12,7 +12,6 @@ RUN npm run build
 
 EXPOSE 3000
 
-FROM nginx:stable-alpine
-COPY /out /usr/share/nginx/html
+RUN rm -r /usr/share/nginx/html/*
 
-CMD ["nginx","-g","daemon off;"]
+RUN cp -a out/. /usr/share/nginx/html
