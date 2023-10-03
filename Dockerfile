@@ -1,4 +1,5 @@
-FROM node:18-alpine
+#Stage 1
+FROM node:18-alpine as builder
 
 WORKDIR /app
 
@@ -12,6 +13,13 @@ RUN npm run build
 
 EXPOSE 3000
 
-RUN rm -r /usr/share/nginx/html/*
+#Stage 2
+FROM nginx:stable-alpine
 
-RUN cp -a out/. /usr/share/nginx/html
+WORKDIR /usr/share/nginx/html
+
+RUN rm -rf ./*
+
+COPY --from=builder /app/out .
+
+ENTRYPOINT [ "nginx","-g","daemon off;" ]
