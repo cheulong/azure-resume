@@ -2,7 +2,7 @@ export default function Home() {
   return (
     <main className="max-w-[700px] bg-slate-600 m-auto">
       <div className="text-black bg-white">
-        <h1 className="text-center text-xl">Cheulong Sear</h1>
+        <h1 className="text-center text-xl">Cheulong</h1>
         <div>
           <p>cheulongsear.dev</p>
           <p>LinkedIn</p>
